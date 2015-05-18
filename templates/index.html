@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+        <div class="container">
+            <h1 style="text-align:center;">Лабораторная работа №2</h1>
+
+            <h2>Пасспортные данные</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Фамилия</th>
+                  <th>Имя</th>
+                  <th>Отчество</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for passport_data in passport_data_list %}
+                        <tr>
+                            <th scope="row">{{passport_data.id}}</th>
+                            <td>{{passport_data.surname}}</td>
+                            <td>{{passport_data.name}}</td>
+                            <td>{{passport_data.pytronymic}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2>Самолёты</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Авиакомпания</th>
+                  <th>Льготы</th>
+                  <th>Тип самолёта</th>
+                  <th>Количество мест</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for plane in plane_list %}
+                        <tr>
+                            <th scope="row">{{plane.id}}</th>
+                            <td>{{plane.airline}}</td>
+                            <td>{{plane.privileges}}</td>
+                            <td>{{plane.type_of_plane}}</td>
+                            <td>{{plane.place_count}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+             <h2>Рейсы</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Пункт отправления</th>
+                  <th>Пункт прибытия</th>
+                  <th>Дата отправления</th>
+                  <th>Время отправления</th>
+                  <th>Дата прибытия</th>
+                  <th>Время прибытия</th>
+                  <th>Номер самолёта</th>
+                  <th>Цена</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for trip in trip_list %}
+                        <tr>
+                            <th scope="row">{{trip.id}}</th>
+                            <td>{{trip.point_of_departure}}</td>
+                            <td>{{trip.point_of_destination}}</td>
+                            <td>{{trip.data_of_departure}}</td>
+                            <td>{{trip.time_of_departure}}</td>
+                            <td>{{trip.data_of_destination}}</td>
+                            <td>{{trip.time_of_destination}}</td>
+                            <td>{{trip.plane_number.id}}</td>
+                            <td>{{trip.cost}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2>Билеты</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>id рейса</th>
+                  <th>id пассажира</th>
+                  <th>id билета</th>
+                  <th>Дата продажи</th>
+                  <th>Время продажи</th>
+                  <th>Цена продажи</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets_list %}
+                        <tr>
+                            <th scope="row">{{ticket.id}}</th>
+                            <td>{{ticket.trip_number.id}}</td>
+                            <td>{{ticket.passenger_id.id}}</td>
+                            <td>{{ticket.ticket_id}}</td>
+                            <td>{{ticket.purchase_data}}</td>
+                            <td>{{ticket.purchase_time}}</td>
+                            <td>{{ticket.purchase_cost}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+	</body>
+</html>

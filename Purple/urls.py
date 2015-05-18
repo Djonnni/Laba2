@@ -1,10 +1,14 @@
-from django.conf.urls import include, url
+from django.conf.urls import patterns, url
+
 from django.contrib import admin
 
-urlpatterns = [
+from views import IndexView
+
+urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'Purple.views.home', name='home'),
+    # url(r'^$', 'example.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
-]
+
+    url(r'^$', IndexView.as_view())
+)

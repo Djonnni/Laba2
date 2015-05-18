@@ -27,15 +27,15 @@ class Trip(models.Model):
 
 
 class Tickets(models.Model):
-    trip_number = models.ForeignKey(Trip, primary_key=True)
-    passenger_id = models.ForeignKey(Passport_data, primary_key=True)
+    trip_number = models.ForeignKey(Trip)
+    passenger_id = models.ForeignKey(Passport_data)
     ticket_id = models.IntegerField(unique=True)
     purchase_data = models.DateField()
     purchase_time = models.TimeField()
     purchase_cost = models.IntegerField()
 
-    #class Meta:
-     #   unique_together = ('trip_number', 'passenger_id')
+    class Meta:
+        unique_together = ('trip_number', 'passenger_id')
 
 
 
