@@ -12,6 +12,15 @@
             <h1 style="text-align:center;">Лабораторная работа №2</h1>
 
             <h2>Пасспортные данные</h2>
+              <h4>Создать новое название</h4>
+             <form action="/Passport_data/" method=post>
+                 Фамилия <input type=text name="surname" size=15 height=100% >
+                 Имя <input type=text name="name" size=15 height=100% >
+                 Отчество <input type=text name="pytronymic" size=15 height=100% >
+                 {% csrf_token %}
+
+                <input type="submit"/>
+                </form>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -28,12 +37,26 @@
                             <td>{{passport_data.surname}}</td>
                             <td>{{passport_data.name}}</td>
                             <td>{{passport_data.pytronymic}}</td>
+                            <td><form action='/delete_fio/' method=post>
+                                 {% csrf_token %}
+                                  <button name="delete_fio" value="{{passport_data.id}}">Удалить</button>
+                                 </form></td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
             <h2>Самолёты</h2>
+             <h4>Добавить новый самолёт</h4>
+             <form action="/Plain/" method=post>
+                 Авиакомпания <input type=text name="airline" size=20 height=100% >
+                 Льготы(True или False) <input type=text name="privileges" size=5 height=100% >
+                 Тип самолёта <input type=text name="type_of_plane" size="20" height=100% >
+                 Количество мест <input type=text name="place_count" size=15 height=100% >
+                 {% csrf_token %}
+
+                <input type="submit"/>
+                </form>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -52,12 +75,41 @@
                             <td>{{plane.privileges}}</td>
                             <td>{{plane.type_of_plane}}</td>
                             <td>{{plane.place_count}}</td>
+                            <td><form action='/delete_plane/' method=post>
+                                 {% csrf_token %}
+                                  <button name="delete_plane" value="{{plane.id}}">Удалить</button>
+                                 </form></td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
              <h2>Рейсы</h2>
+             <h4>Добавить новый рейс</h4>
+             <form action="/Trip/" method=post>
+                 <h4>Пункты отправления и прибытия</h4>
+                 Пункт отправления <input type=text name="point_of_departure" size=20 height=100% >
+                 Пункт прибытия <input type=text name="point_of_destination" size=20 height=100% >
+                 <h4>Дата и время отправления</h4>
+                 <h4>Время указывать в формате : HH:MM </h4>
+                 <h4>Даты указывать в формате : YYYY-MM-DD </h4>
+                 Дата отправления <input type=text name="data_of_departure" size="20" height=100% >
+                 Время отправления <input type=text name="time_of_departure" size=15 height=100% >
+
+                 <h4>Дата и время прибытия</h4>
+                 Дата прибытия <input type=text name="data_of_destination" size=20 height=100% >
+                 Время прибытия <input type=text name="time_of_destination" size=15 height=100% >
+                 <h4>Другая информация</h4>
+                 Номер самолёта <select name="plane_number" class="selectpicker">
+                  {% for plane in plane_list %}
+                <option value="{{plane.id}}">{{plane.id}}</option>
+                    {% endfor %}
+                </select>
+                 Цена <input type=text name="cost" size=15 height=100% >
+                 {% csrf_token %}
+                  <input type="submit"/>
+                </form>
+
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -84,12 +136,40 @@
                             <td>{{trip.time_of_destination}}</td>
                             <td>{{trip.plane_number.id}}</td>
                             <td>{{trip.cost}}</td>
+                            <td><form action='/delete_trip/' method=post>
+                                 {% csrf_token %}
+                                  <button name="delete_trip" value="{{trip.id}}">Удалить</button>
+                                 </form></td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
             <h2>Билеты</h2>
+            <h4>Добавить новый билет</h4>
+             <form action="/Ticket/" method=post>
+                 Номер рейса <select name="trip_number" class="selectpicker">
+                  {% for trip in trip_list %}
+                <option value="{{trip.id}}">{{trip.id}}</option>
+                    {% endfor %}
+                </select>
+                 id пассажира <select name="passenger_id" class="selectpicker">
+                  {% for passport_data in passport_data_list %}
+                <option value="{{passport_data.id}}">{{passport_data.id}}</option>
+                    {% endfor %}
+                </select>
+                 id билета <input type=text name="ticket_id" size="5" height=100% >
+                 <h4>Дата и время продажи</h4>
+                 <h4>Дату указывать в формате : YYYY-MM-DD</h4>
+                 <h4>Время указывать в формате : HH:MM</h4>
+                 Дата продажи <input type=text name="purchase_data" size=15 height=100% >
+                 Время продажи <input type=text name="purchase_time" size=15 height=100% >
+                 <h4>Другая информация</h4>
+                 Стоимость приобретения <input type=text name="purchase_cost" size=15 height=100% >
+                 {% csrf_token %}
+                  <input type="submit"/>
+                </form>
+
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -112,6 +192,10 @@
                             <td>{{ticket.purchase_data}}</td>
                             <td>{{ticket.purchase_time}}</td>
                             <td>{{ticket.purchase_cost}}</td>
+                            <td><form action='/delete_ticket/' method=post>
+                                 {% csrf_token %}
+                                  <button name="delete_ticket" value="{{ticket.id}}">Удалить</button>
+                                 </form></td>
                         </tr>
                     {% endfor %}
                 </tbody>
